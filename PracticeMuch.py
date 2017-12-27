@@ -1,3 +1,8 @@
+from stuff import sick, cool
+
+print(sick.sayHi())
+print(cool.sayBi())
+
 #Python has something called while-else
 #Pretty fancy
 to_ten = [1, 1, 1, 4, 6, 7, 8, 9, 10]
@@ -11,3 +16,10 @@ while counter != len(to_ten):
 	counter += 1
 else:
 	print("Didn't got five :(")
+	
+# Python's implementation with for-loop is pythonic
+print("I am gonna do my for loop now")
+# Conveniently enough, the iterable objects in python is
+# lot more comfortable to deal with than C's
+for num in to_ten:
+	print(num)
