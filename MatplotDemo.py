@@ -18,5 +18,4 @@ import matplotlib.pyplot as mp
 
 #broken
 salaries = np.array([132754, 137192, 122177, 147121, 143000, 126010, 129200, 124312, 128132])
-mp.hist([120000, 130000, 140000], salaries)
-mp.show()
+#It might be a better idea to study more about that concepts and come back.
