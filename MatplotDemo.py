@@ -16,6 +16,7 @@ import matplotlib.pyplot as mp
 #diff_cost = 94000-86000
 #diff_size = 1900-1600
 
-# Not working.
+#broken
 salaries = np.array([132754, 137192, 122177, 147121, 143000, 126010, 129200, 124312, 128132])
-mp.bar(, [0, 140000])
+mp.hist([120000, 130000, 140000], salaries)
+mp.show()
