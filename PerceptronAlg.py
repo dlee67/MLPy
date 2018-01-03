@@ -33,6 +33,9 @@ class Perceptron (object):
 		#with the normal distribution; however, the line directly below sets 
 		#all the weight values to be non-zero.
 		self.w_ = rgen.normal(loc=0.0, scale =0.01, size=1+X.shape[1])
+		
+		print("Weights are: ", self.w_)
+		
 		self.errors_ = []
 		
 		#print("At fit")
@@ -46,11 +49,22 @@ class Perceptron (object):
 			errors = 0
 			for xi, target in zip(X, y):
 				#print("In fit for loop")
-				#print("xi is: ", xi)
+				print("xi is: ", xi)
 				#print("target is: ", target)
 				#The line directly below is delta W.
 				update=self.eta * (target - self.predict(xi))
 				self.w_[1:] += update*xi
+				
+				if update != 0:
+					print("Miss fire.")
+					print("Update is: ", update)
+					print("self.w_[1:] now: ", self.w_[1:])
+				
+				#if update == 0:
+				#	print("Not a miss fire.")
+				#	print("update is: ", update)
+				#	print("Weights are: ", self.w_[1:])	
+				
 				#The line be directly is related to something called biased-unit.
 				self.w_[0] += update 
 				#The line below is for the wrong predictions, where the boolean
@@ -64,6 +78,7 @@ class Perceptron (object):
 	# The below method is what sums up everything regarding linear classification with the perceptron algorithm.
 	# After all, dot product is the representation of 
 	# This is Z.
+	# Machine Learning, 2nd Edition refers this portion as the activation (the firing of the neurons and such). 
 	def net_input(self, X):
 		#This returns z (that is mentioned in the book), that's about it.
 		#print("At net input")
@@ -120,28 +135,28 @@ def plot_decision_regions(X, y, classifier, resolution=0.02):
 	x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
 	x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
 	
-	print("x1_min is: ", x1_min) 
-	print("x1_max is: ", x1_max)
-	print("x2_min is: ", x2_min)
-	print("x2_max is: ", x2_max)
+	#print("x1_min is: ", x1_min) 
+	#print("x1_max is: ", x1_max)
+	#print("x2_min is: ", x2_min)
+	#print("x2_max is: ", x2_max)
 	
 	xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution), np.arange(x2_min, x2_max, resolution))
 	
-	print("xx1 is: ", xx1)
-	print("xx2 is: ", xx2)
+	#print("xx1 is: ", xx1)
+	#print("xx2 is: ", xx2)
 	
 	#ravel() eliminates the multi-dimensionalities, where the returned array is always one-dimensional array.
 	#In this case, classifier is the perceptron algorithm which is already has the adjusted weights.
 	Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
-	print("xx1 ravel is: ", xx1.ravel())
-	print("xx2 ravel is: ", xx2.ravel())
-	print("np.array([xx1.ravel(), xx2.ravel()]) is: ", np.array([xx1.ravel(), xx2.ravel()]))
+	#print("xx1 ravel is: ", xx1.ravel())
+	#print("xx2 ravel is: ", xx2.ravel())
+	#print("np.array([xx1.ravel(), xx2.ravel()]) is: ", np.array([xx1.ravel(), xx2.ravel()]))
 	#In all obviousnes, the .T invocation is for the transpose.
-	print("np.array([xx1.ravel(), xx2.ravel()]).T is: ", np.array([xx1.ravel(), xx2.ravel()]).T)
-	print("Z is: ", Z)
+	#print("np.array([xx1.ravel(), xx2.ravel()]).T is: ", np.array([xx1.ravel(), xx2.ravel()]).T)
+	#print("Z is: ", Z)
 	
 	Z = Z.reshape(xx1.shape)
-	print("Z.reshape(xx1.shape) is: ", Z)
+	#print("Z.reshape(xx1.shape) is: ", Z)
 	
 	#The contourf is what's making the linear distinction here.
 	#plt.contourf(xx1, xx2, Z, alpha=0.3, cmap=cmap)
