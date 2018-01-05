@@ -28,7 +28,7 @@ def mutate_weight(input, current_weight, target_value):
 	return current_weight
 	
 def mutate_bias(input, current_weight, target_value):
-	weight_vector[0] += delta_weight(input, current_weight, target_value)
+	current_weight[0] += delta_weight(input, current_weight, target_value)
 	
 def perceptron(weight):
 	weight_now = weight
