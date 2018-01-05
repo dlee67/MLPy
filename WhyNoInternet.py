@@ -18,14 +18,14 @@ rgen = np.random.RandomState(1)
 weight_vector = rgen.normal(loc=0.0, scale =0.01, size=1+inputs.shape[1])
 
 def close_to_target(input, current_weight):
-	return  np.where(np.dot(input, current_weight[1:]) >= 0, 1, -1)
+	#print("At ctt, returning: ", np.where(np.dot(input, current_weight) >= 0, 1, -1))
+	return  np.where(np.dot(input, current_weight) >= 0, 1, -1)
 
 def delta_weight(input, current_weight, target_value):
 	return learning_rate*(target_value-(close_to_target(input, current_weight)))
 	
 def mutate_weight(input, current_weight, target_value):
-	current_weight += delta_weight(input, current_weight, target_value)
-	return current_weight
+	weight_vector += delta_weight(input, current_weight, target_value)
 	
 def mutate_bias(input, current_weight, target_value):
 	weight_vector[0] += delta_weight(input, current_weight, target_value)
@@ -35,10 +35,9 @@ def perceptron(weight):
 	epoch = 10
 	for iter in range(epoch):
 		for current_data, target_data in zip(inputs, classes):
-			weight_now = mutate_weight(current_data, weight_now, target_data)
+			mutate_weight(current_data, weight_now, target_data)
 			mutate_bias(current_data, weight_now, target_data)
-	
-	print("Weight now: ", weight_now)	
-	return weight_now
-	
+	print("Weight now: ", weight_vector)	
+		
+		
 perceptron(weight_vector)

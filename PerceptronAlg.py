@@ -25,6 +25,9 @@ class Perceptron (object):
 		rgen = np.random.RandomState(self.random_state) # Random generator, that's really it.
 		self.w_ = rgen.normal(loc=0.0, scale =0.01, size=1+X.shape[1])
 		self.errors_ = []
+		
+		print("weight vector in the beginning: ", self.w_)
+		
 		#iterate according to the amount of n_iter.
 		for epoch in range(self.n_iter):
 			errors = 0
