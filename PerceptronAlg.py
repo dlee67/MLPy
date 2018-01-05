@@ -39,14 +39,14 @@ class Perceptron (object):
 					print("Weight later: ", (self.w_[1:] + update*xi))
 					print("\n")
 					
-				if update == 0:
-					print("No miss fire on target: ", target, " ,with data: ", xi)
-					print("Weight now: ", self.w_[1:])
-					print("Biased unit at: ", self.w_[0])
-					print("Update's at: ", update)
-					print("net_input returns: ", self.net_input(xi))
-					print("Weight later: ", (self.w_[1:] + update*xi))
-					print("\n")
+				#if update == 0:
+				#	print("No miss fire on target: ", target, " ,with data: ", xi)
+				#	print("Weight now: ", self.w_[1:])
+				#	print("Biased unit at: ", self.w_[0])
+				#	print("Update's at: ", update)
+				#	print("net_input returns: ", self.net_input(xi))
+				#	print("Weight later: ", (self.w_[1:] + update*xi))
+				#	print("\n")
 				
 				self.w_[1:] += update*xi			
 				self.w_[0] += update 
