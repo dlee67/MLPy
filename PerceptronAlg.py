@@ -1,3 +1,5 @@
+#When it comes to algorithms, whoever is teaching it will not tell us the significances within the algorithm,
+#that makes it work.
 from matplotlib.colors import ListedColormap
 import numpy as np
 import pandas as pd
@@ -21,31 +23,32 @@ class Perceptron (object):
 	
 	def fit(self, X, y):
 		rgen = np.random.RandomState(self.random_state) # Random generator, that's really it.
-		
 		self.w_ = rgen.normal(loc=0.0, scale =0.01, size=1+X.shape[1])
-		
-		print("Weights are: ", self.w_)
-		
 		self.errors_ = []
-		
 		#iterate according to the amount of n_iter.
 		for epoch in range(self.n_iter):
 			errors = 0
 			for xi, target in zip(X, y):
-				update=self.eta * (target - self.predict(xi))
-				self.w_[1:] += update*xi
-				
+				update=self.eta * (target - self.predict(xi)) #Still bit confused about why there is nothing here that prepresents the X^i	
 				if update != 0:
-					print("Weight is: ", self.w_[1:])
-					print("xi is: ", xi)
-					print("Predict returns: ", self.predict(xi))
+					print("Miss fire on target: ", target, " ,with data: ", xi)
+					print("Weight now: ", self.w_[1:])
+					print("Biased unit at: ", self.w_[0])
+					print("Update's at: ", update)
 					print("net_input returns: ", self.net_input(xi))
-					print("Miss fire.")
-					print("Update is: ", update)
-					#https://stackoverflow.com/questions/31292393/how-do-you-draw-a-line-using-the-weight-vector-in-a-linear-perceptron
-					print("self.w_[:] now: ", self.w_[:])
-					self.final_weight = self.w_[:]
+					print("Weight later: ", (self.w_[1:] + update*xi))
+					print("\n")
+					
+				if update == 0:
+					print("No miss fire on target: ", target, " ,with data: ", xi)
+					print("Weight now: ", self.w_[1:])
+					print("Biased unit at: ", self.w_[0])
+					print("Update's at: ", update)
+					print("net_input returns: ", self.net_input(xi))
+					print("Weight later: ", (self.w_[1:] + update*xi))
+					print("\n")
 				
+				self.w_[1:] += update*xi			
 				self.w_[0] += update 
 				errors += int(update != 0.0)
 			self.errors_.append(errors) 
