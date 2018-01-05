@@ -54,7 +54,8 @@ class Perceptron (object):
 				self.w_[1:] += update*xi			
 				self.w_[0] += update 
 				errors += int(update != 0.0)
-			self.errors_.append(errors) 
+			self.errors_.append(errors)
+		print("Weight now is: ", self.w_)
 		return self
 	
 	# https://math.stackexchange.com/questions/1461038/how-exactly-does-the-sign-of-the-dot-product-determine-the-angle-between-two-vec
@@ -110,5 +111,5 @@ def graph(formula, slope, intercept):
 def lin_eq(m, x, b):
 	return m*x + b
 	
-plot_decision_regions(X, y, classifier=ppn)
-plt.show()
+#plot_decision_regions(X, y, classifier=ppn)
+#plt.show()

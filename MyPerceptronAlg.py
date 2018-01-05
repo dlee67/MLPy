@@ -13,15 +13,18 @@ df = pd.read_csv('https://archive.ics.uci.edu/ml/'
 inputs = df.iloc[0:100, [0, 2]].values
 classes = df.iloc[0:100, 4].values
 classes = np.where(classes == 'Iris-setosa', -1, 1)
-learning_rate = 0.22
+learning_rate = 0.1
 rgen = np.random.RandomState(1)
 weight_vector = rgen.normal(loc=0.0, scale =0.01, size=1+inputs.shape[1])
 
 def close_to_target(input, current_weight):
-	return  np.where(np.dot(input, current_weight[1:]) >= 0, 1, -1)
+	return  np.dot(input, current_weight[1:]) + current_weight[0]
+	
+def decision_func(input, current_weight):
+	return np.where(close_to_target(input, current_weight) >= 0, 1, -1)
 
 def delta_weight(input, current_weight, target_value):
-	return learning_rate*(target_value-(close_to_target(input, current_weight)))
+	return learning_rate*(target_value-(decision_func(input, current_weight)))
 	
 def mutate_weight(input, current_weight, target_value):
 	current_weight += delta_weight(input, current_weight, target_value)
